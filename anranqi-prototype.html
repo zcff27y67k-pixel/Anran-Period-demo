@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>安然期产品原型图</title>
+    <style>
+      :root {
+        --bg: #fffdf9;
+        --paper: #ffffff;
+        --text: #2f2a2a;
+        --muted: #7a7272;
+        --line: #eee7e1;
+        --rose: #d86a73;
+        --rose-soft: #fff0f1;
+        --purple: #a78bfa;
+        --blue: #7db7e8;
+        --green: #86c8a8;
+        --notice: #fff4e8;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f7f1ea;
+        color: var(--text);
+      }
+
+      .board {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 36px 28px 52px;
+      }
+
+      .board-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 34px;
+        letter-spacing: 0;
+      }
+
+      .board-header p {
+        max-width: 640px;
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+      }
+
+      .swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .swatch.rose { background: var(--rose); }
+      .swatch.blue { background: var(--blue); }
+      .swatch.purple { background: var(--purple); }
+      .swatch.green { background: var(--green); }
+
+      .screens {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+        gap: 28px;
+      }
+
+      .screen-card {
+        display: grid;
+        gap: 12px;
+      }
+
+      .screen-title {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .screen-title h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .screen-title span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .phone {
+        width: 310px;
+        min-height: 672px;
+        margin: 0 auto;
+        overflow: hidden;
+        border: 10px solid #2f2a2a;
+        border-radius: 38px;
+        background: var(--bg);
+        box-shadow: 0 20px 42px rgba(83, 63, 52, 0.16);
+      }
+
+      .phone-inner {
+        min-height: 652px;
+        padding: 18px 14px 82px;
+        background: linear-gradient(180deg, rgba(255, 244, 232, 0.82), rgba(255, 253, 249, 0) 170px), var(--bg);
+        position: relative;
+      }
+
+      .phone.no-tabs .phone-inner {
+        padding-bottom: 20px;
+      }
+
+      .status {
+        display: flex;
+        justify-content: space-between;
+        color: #6e6662;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .app-title p {
+        margin: 0 0 4px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .app-title h3 {
+        margin: 0 0 14px;
+        font-size: 23px;
+      }
+
+      .panel,
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--paper);
+        box-shadow: 0 8px 22px rgba(95, 72, 60, 0.05);
+      }
+
+      .panel {
+        padding: 15px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 42px 0 20px;
+      }
+
+      .mark {
+        display: grid;
+        width: 58px;
+        height: 58px;
+        place-items: center;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(216, 106, 115, 0.16), rgba(134, 200, 168, 0.2));
+        color: var(--rose);
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      .brand h3 {
+        margin: 0;
+        font-size: 27px;
+      }
+
+      .brand p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .dots {
+        display: flex;
+        gap: 7px;
+        margin-bottom: 14px;
+      }
+
+      .dots i {
+        width: 9px;
+        height: 9px;
+        border-radius: 99px;
+        background: #ded6cf;
+      }
+
+      .dots i.active {
+        width: 25px;
+        background: var(--green);
+      }
+
+      .field-title {
+        margin: 0 0 10px;
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        min-height: 42px;
+        padding: 9px 13px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: #fff;
+        font-size: 16px;
+      }
+
+      .chip.active {
+        border-color: rgba(167, 139, 250, 0.5);
+        background: rgba(167, 139, 250, 0.15);
+        font-weight: 800;
+      }
+
+      .primary {
+        display: grid;
+        min-height: 52px;
+        place-items: center;
+        margin-top: 18px;
+        border-radius: 14px;
+        background: var(--text);
+        color: white;
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .date-strip {
+        display: flex;
+        gap: 8px;
+        margin: 4px -2px 14px;
+        overflow: hidden;
+      }
+
+      .date {
+        flex: 0 0 62px;
+        min-height: 68px;
+        padding: 9px 6px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: #fff;
+        text-align: center;
+      }
+
+      .date small {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .date b {
+        display: block;
+        margin-top: 6px;
+        font-size: 18px;
+      }
+
+      .date.active {
+        border-color: rgba(167, 139, 250, 0.45);
+        background: rgba(167, 139, 250, 0.14);
+      }
+
+      .period-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 142px;
+        padding: 20px;
+        border: 1px solid rgba(216, 106, 115, 0.32);
+        border-radius: 16px;
+        background: linear-gradient(135deg, #fff8f8, #fff0f1);
+      }
+
+      .period-card h3 {
+        margin: 0 0 6px;
+        font-size: 24px;
+      }
+
+      .period-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .state {
+        display: inline-flex;
+        margin-top: 13px;
+        padding: 6px 11px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.74);
+        color: #47785f;
+        font-weight: 800;
+        font-size: 15px;
+      }
+
+      .quick-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .small-card {
+        min-height: 112px;
+        padding: 14px;
+      }
+
+      .small-card b {
+        display: block;
+        margin: 8px 0 6px;
+        font-size: 17px;
+      }
+
+      .small-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .icon {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 12px;
+        background: rgba(125, 183, 232, 0.18);
+      }
+
+      .tabs {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 8px;
+        border-top: 1px solid var(--line);
+        background: rgba(255, 253, 249, 0.96);
+      }
+
+      .tabs span {
+        min-height: 52px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tabs .active {
+        background: rgba(167, 139, 250, 0.15);
+        color: var(--text);
+        font-weight: 800;
+      }
+
+      .sheet {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        max-height: 580px;
+        padding: 12px 14px 18px;
+        border-radius: 22px 22px 0 0;
+        background: var(--bg);
+        box-shadow: 0 -16px 38px rgba(47, 42, 42, 0.18);
+      }
+
+      .handle {
+        width: 46px;
+        height: 5px;
+        margin: 0 auto 12px;
+        border-radius: 99px;
+        background: #dfd6ce;
+      }
+
+      .sheet-head {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .sheet-head h3 {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .close {
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .range {
+        height: 8px;
+        border-radius: 99px;
+        background: linear-gradient(90deg, var(--rose) 30%, #eadfd8 30%);
+      }
+
+      .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 6px;
+      }
+
+      .week {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        margin-bottom: 8px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .day {
+        position: relative;
+        display: grid;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 12px;
+        background: #fffaf5;
+        font-size: 16px;
+      }
+
+      .day.today {
+        border: 1px solid rgba(125, 183, 232, 0.55);
+        background: rgba(125, 183, 232, 0.14);
+        color: #2f6f9f;
+        font-weight: 900;
+      }
+
+      .day.bleed::after {
+        position: absolute;
+        right: 8px;
+        bottom: 7px;
+        left: 8px;
+        height: 5px;
+        border-radius: 99px;
+        background: var(--rose);
+        content: "";
+      }
+
+      .day .mini {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        display: flex;
+        gap: 3px;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      .dot.purple { background: var(--purple); }
+      .dot.blue { background: var(--blue); }
+      .dot.gray { background: #bbb5b0; }
+
+      .calendar-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .calendar-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .detail {
+        margin-top: 12px;
+        line-height: 1.75;
+        font-size: 15px;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .metric {
+        min-height: 82px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .metric b {
+        display: block;
+        margin-top: 9px;
+        font-size: 17px;
+      }
+
+      .notice {
+        padding: 13px;
+        border: 1px solid rgba(231, 178, 114, 0.26);
+        border-radius: 16px;
+        background: var(--notice);
+      }
+
+      .notice b {
+        display: block;
+        font-size: 17px;
+      }
+
+      .notice span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .level {
+        display: grid;
+        min-height: 48px;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px 14px;
+        border-radius: 15px;
+        background: rgba(134, 200, 168, 0.14);
+        color: var(--text);
+        font-weight: 900;
+      }
+
+      .table {
+        display: grid;
+        gap: 8px;
+      }
+
+      .table div {
+        display: grid;
+        grid-template-columns: 0.9fr 1.25fr;
+        gap: 9px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fffaf5;
+        font-size: 14px;
+      }
+
+      .table span {
+        color: var(--muted);
+      }
+
+      @media print {
+        body { background: white; }
+        .board { max-width: none; padding: 18px; }
+        .screens { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .phone { transform: scale(0.92); transform-origin: top center; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="board">
+      <header class="board-header">
+        <div>
+          <h1>安然期 · 移动端产品原型图</h1>
+          <p>面向 45-60 岁围绝经期及绝经后女性的身体状态记录工具。原型重点呈现温和、清晰、可信赖的记录与就医沟通辅助流程。</p>
+        </div>
+        <div class="legend">
+          <span><i class="swatch rose"></i>经期变化</span>
+          <span><i class="swatch blue"></i>潮热盗汗/睡眠</span>
+          <span><i class="swatch purple"></i>身体感受</span>
+          <span><i class="swatch green"></i>完成状态</span>
+        </div>
+      </header>
+
+      <section class="screens">
+        <article class="screen-card">
+          <div class="screen-title"><h2>01 首次引导</h2><span>逐题填写基础信息</span></div>
+          <div class="phone no-tabs">
+            <div class="phone-inner">
+              <div class="status"><span>9:41</span><span>安然期</span></div>
+              <div class="brand">
+                <div class="mark">安</div>
+                <div>
+                  <h3>安然期</h3>
+                  <p>温和记录身体变化</p>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="dots"><i class="active"></i><i></i><i></i></div>
+                <p class="field-title">先了解你的年龄段</p>
+                <div class="chips">
+                  <span class="chip">45-49</span>
+                  <span class="chip active">50-54</span>
+                  <span class="chip">55-60</span>
+                  <span class="chip">60+</span>
+                </div>
+                <div class="primary">下一步</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="screen-card">
+          <div class="screen-title"><h2>02 今日记录</h2><span>主入口与四项辅助记录</span></div>
+          <div class="phone">
+            <div class="phone-inner">
+              <div class="status"><span>9:41</span><span>7月4日</span></div>
+              <div class="app-title">
+                <p>2026年7月4日</p>
+                <h3>今天身体怎么样</h3>
+              </div>
+              <div class="date-strip">
+                <div class="date"><small>二</small><b>6/30</b></div>
+                <div class="date"><small>三</small><b>7/1</b></div>
+                <div class="date"><small>四</small><b>7/2</b></div>
+                <div class="date active"><small>今天</small><b>7/4</b></div>
+              </div>
+              <div class="period-card">
+                <div>
+                  <h3>经期变化</h3>
+                  <p>是否有出血或点滴？</p>
+                  <span class="state">已记录：有出血，少量</span>
+                </div>
+                <div style="font-size: 34px">☼</div>
+              </div>
+              <div class="quick-grid">
+                <div class="card small-card"><span class="icon">♨</span><b>潮热盗汗</b><p>记录潮热、盗汗</p></div>
+                <div class="card small-card"><span class="icon">☾</span><b>睡眠变化</b><p>记录夜醒与睡眠质量</p></div>
+                <div class="card small-card"><span class="icon">✦</span><b>身体不适</b><p>记录常见身体感受</p></div>
+                <div class="card small-card"><span class="icon">☺</span><b>整体心情</b><p>不悲不喜</p></div>
+              </div>
+              <div class="tabs"><span class="active">今日记录</span><span>变化日历</span><span>就医摘要</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="screen-card">
+          <div class="screen-title"><h2>03 经期记录弹窗</h2><span>底部抽屉，生活化表达</span></div>
+          <div class="phone">
+            <div class="phone-inner">
+              <div class="status"><span>9:41</span><span>记录中</span></div>
+              <div class="app-title"><p>2026年7月4日</p><h3>今天身体怎么样</h3></div>
+              <div class="period-card"><div><h3>经期变化</h3><p>是否有出血或点滴？</p></div><div style="font-size: 34px">☼</div></div>
+              <div class="sheet">
+                <div class="handle"></div>
+                <div class="sheet-head"><h3>记录经期</h3><span class="close">关闭</span></div>
+                <p class="field-title">今天的情况</p>
+                <div class="chips"><span class="chip">今天没有</span><span class="chip active">今天有出血或点滴</span></div>
+                <p class="field-title" style="margin-top: 16px">出血量</p>
+                <div class="chips"><span class="chip active">少量</span><span class="chip">中等</span><span class="chip">较多</span></div>
+                <p class="field-title" style="margin-top: 16px">腹痛程度：3/10</p>
+                <div class="range"></div>
+                <div class="primary">保存记录</div>
+              </div>
+              <div class="tabs"><span class="active">今日记录</span><span>变化日历</span><span>就医摘要</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="screen-card">
+          <div class="screen-title"><h2>04 变化日历</h2><span>月历、详情与近 30 天趋势</span></div>
+          <div class="phone">
+            <div class="phone-inner">
+              <div class="status"><span>9:41</span><span>7月</span></div>
+              <div class="app-title"><p>历史记录与趋势</p><h3>变化日历</h3></div>
+              <div class="panel">
+                <div style="display:flex;justify-content:space-between;margin-bottom:12px"><b>2026 年 07 月</b><span style="color:var(--muted)">下月</span></div>
+                <div class="week"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+                <div class="calendar">
+                  <div></div><div></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day today bleed">4</div><div class="day">5</div>
+                  <div class="day">6</div><div class="day">7</div><div class="day bleed">8</div><div class="day">9</div><div class="day"><span class="mini"><i class="dot purple"></i></span>10</div><div class="day">11</div><div class="day"><span class="mini"><i class="dot blue"></i></span>12</div>
+                  <div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+                </div>
+                <div class="calendar-legend"><span>今天</span><span>经期变化</span><span>身体不适</span><span>潮热睡眠</span></div>
+              </div>
+              <div class="panel detail">
+                <b>2026年7月4日</b><br />
+                经期变化：少量，暗红<br />
+                睡眠：一般，夜醒 1-2 次
+              </div>
+              <div class="metrics" style="margin-top: 10px">
+                <div class="metric"><span>最近一次记录</span><b>7月4日</b></div>
+                <div class="metric"><span>经期变化</span><b>2 天</b></div>
+                <div class="metric"><span>潮热盗汗</span><b>3 天</b></div>
+                <div class="metric"><span>睡眠受影响</span><b>4 天</b></div>
+              </div>
+              <div class="tabs"><span>今日记录</span><span class="active">变化日历</span><span>就医摘要</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="screen-card">
+          <div class="screen-title"><h2>05 就医摘要</h2><span>动态提示与简洁摘要</span></div>
+          <div class="phone">
+            <div class="phone-inner">
+              <div class="status"><span>9:41</span><span>近 90 天</span></div>
+              <div class="app-title"><p>近 90 天</p><h3>就医摘要</h3></div>
+              <div class="level">建议关注</div>
+              <div class="notice">
+                <b>近期盗汗对睡眠有影响，可以记录发生时间和频率，必要时咨询医生。</b>
+                <span>依据：有 2 天记录夜间出汗醒来。</span>
+              </div>
+              <div class="panel" style="margin-top: 12px">
+                <h3 style="margin:0 0 12px">近 90 天摘要</h3>
+                <div class="metrics">
+                  <div class="metric"><span>关注提示</span><b>1 条</b></div>
+                  <div class="metric"><span>经期变化</span><b>3 次</b></div>
+                  <div class="metric"><span>潮热盗汗</span><b>8 天</b></div>
+                  <div class="metric"><span>睡眠受影响</span><b>6 天</b></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px">
+                  <div class="chip" style="text-align:center">复制摘要</div>
+                  <div class="chip active" style="text-align:center">预览导出</div>
+                </div>
+              </div>
+              <div class="tabs"><span>今日记录</span><span>变化日历</span><span class="active">就医摘要</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="screen-card">
+          <div class="screen-title"><h2>06 设置与导出预览</h2><span>基础信息、隐私说明、TXT 导出</span></div>
+          <div class="phone">
+            <div class="phone-inner">
+              <div class="status"><span>9:41</span><span>导出</span></div>
+              <div class="sheet" style="max-height: 620px">
+                <div class="handle"></div>
+                <div class="sheet-head"><h3>导出预览</h3><span class="close">关闭</span></div>
+                <p style="margin:0 0 10px;color:var(--muted);font-size:15px">以下内容会整理为 TXT，方便就医时给医生查看。</p>
+                <div class="table">
+                  <div><span>年龄段</span><b>50-54</b></div>
+                  <div><span>经期当前状态</span><b>经期不规律</b></div>
+                  <div><span>最近一次记录</span><b>2026年7月4日</b></div>
+                  <div><span>潮热盗汗记录</span><b>8 天有相关记录</b></div>
+                  <div><span>温和提示</span><b>建议持续观察，必要时咨询医生。</b></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px">
+                  <div class="chip" style="text-align:center">复制摘要</div>
+                  <div class="chip active" style="text-align:center">导出 TXT</div>
+                </div>
+              </div>
+              <div class="tabs"><span>今日记录</span><span>变化日历</span><span class="active">就医摘要</span></div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
